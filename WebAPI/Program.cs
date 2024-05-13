@@ -5,27 +5,12 @@ using Application.Mappings;
 using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
+using WebAPI.Installers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-
-builder.Services.AddSingleton(AutoMapperConfig.Initialize());
-
-builder.Services.AddControllers();
-
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c=>
-{
-    c.EnableAnnotations();
-    
-});
-
+builder.Services.InstallServicesInAssembly(builder.Configuration);
 
 
 var app = builder.Build();

@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Mappings;
+using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dto
 {
-    public class ProductDto
+    public class ProductDto : IMap
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,5 +17,10 @@ namespace Application.Dto
         public double Width { get; set; }
         public double Height { get; set; }
         public GlassType GlassType { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Product, ProductDto>();
+        }
     }
 }
