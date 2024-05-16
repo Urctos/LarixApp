@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +11,41 @@ namespace Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private static readonly ISet<Product> _products = new HashSet<Product>()
-        {
-            new (1, "Title 1", "Description 1", 115, 150, GlassType.SinglePane),
-            new (2, "Title 2", "Description 2", 120, 155, GlassType.SinglePane),
-            new (3, "Title 3", "Description 3", 135, 156, GlassType.SinglePane),
+        private readonly LarixContext _context;
 
-        };
+        public ProductRepository(LarixContext context)
+        {
+            _context =  context;
+        }
+
         public IEnumerable<Product> GetAll()
         {
-            return _products;
+            return _context.Products;
         }
 
         public Product GetById(int id)
         {
-            return _products.SingleOrDefault(x => x.Id == id);
-
+            return _context.Products.SingleOrDefault(x => x.Id == id);
         }
         public Product Add(Product product)
         {
-            product.Id = _products.Count() + 1;
+            
             product.Created = DateTime.UtcNow;
-            _products.Add(product);
+            _context.Products.Add(product);
+            _context.SaveChanges();
             return product;
         }
 
         public void Update(Product product)
         {
             product.LastModified = DateTime.UtcNow;
+            _context.Products.Update(product);
+            _context.SaveChanges();
         }
         public void Delete(Product product)
         {
-            _products.Remove(product);
+            _context.Products.Remove(product);
+            _context.SaveChanges();
         }
 
     }

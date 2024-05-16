@@ -1,10 +1,12 @@
 ﻿using Application.Dto;
 using Application.Interfaceas;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebAPI.Controllers
 {
+    [ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase

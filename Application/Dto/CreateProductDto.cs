@@ -15,7 +15,7 @@ namespace Application.Dto
         public string Description { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
-        public GlassType GlassType { get; set; }
+        public int GlassTypeId { get; set; }
 
         public void Mapping(Profile profile)
         {
