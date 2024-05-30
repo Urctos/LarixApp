@@ -14,12 +14,14 @@ namespace Domain.Entities
     public class GlassType : AuditableEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int GlassTypeId { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+        public decimal Price { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+
+        public ICollection<Window> Windows { get; set; }
     }
 }

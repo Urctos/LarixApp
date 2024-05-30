@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    [Table("Products")]
-    public class Product : AuditableEntity
+    [Table("Windows")]
+    public class Window : AuditableEntity
     {
         [Key]
         public int Id { get; set; }
@@ -29,15 +29,21 @@ namespace Domain.Entities
         [Required]
         public double Height { get; set; }
 
-        [ForeignKey(nameof(GlassType))]
+        [Required]
+        public decimal Price { get; set; }
+
+        [Required]
         public int GlassTypeId { get; set; }
+
+        [ForeignKey("GlassTypeId")]
         public GlassType GlassType { get; set; }
 
-        public Product() { }
 
-        public Product(int id, string name, string description, double width, double height, int glassTypeId)
+        public Window() { }
+
+        public Window(int id, string name, string description, double width, double height, decimal price, int glassTypeId)
         {
-            (Id, Name, Description, Width, Height, GlassTypeId) = (id, name, description, width, height, glassTypeId);
+            (Id, Name, Description, Width, Height, Price, GlassTypeId) = (id, name, description, width, height, price, glassTypeId);
         }
     }
 }

@@ -7,17 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace Application.Dto.WindowsDto
 {
-    public class UpdateProductDto : IMap
+    public class WindowDto : IMap
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public decimal Price { get; set; }
+        public int GlassTypeId { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UpdateProductDto, Product>();
+            profile.CreateMap<Window, WindowDto>()
+                .ForMember(dest => dest.GlassTypeId, opt => opt.MapFrom(src => src.GlassTypeId));
         }
     }
 }

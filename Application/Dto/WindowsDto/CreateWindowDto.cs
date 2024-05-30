@@ -7,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace Application.Dto.WindowsDto
 {
-    public class ProductDto : IMap
+    public class CreateWindowDto : IMap
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
-        public GlassType GlassType { get; set; }
+        public decimal Price { get; set; }
+        public int GlassTypeId { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Product, ProductDto>();
+            profile.CreateMap<CreateWindowDto, Window>();
         }
     }
 }

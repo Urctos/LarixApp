@@ -15,6 +15,17 @@ namespace Infrastructure.Data
                 
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Window> Windows { get; set; }
+        public DbSet<GlassType> GlassTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Window>()
+                .HasOne(w => w.GlassType)
+                .WithMany(gt => gt.Windows)
+                .HasForeignKey(w => w.GlassTypeId); 
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

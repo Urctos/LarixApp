@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LarixContext))]
-    [Migration("20240516185800_CreateLarixDb")]
-    partial class CreateLarixDb
+    [Migration("20240522215438_EditWindowAndGlassTypeTables")]
+    partial class EditWindowAndGlassTypeTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,12 +50,18 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("WindowId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WindowId")
+                        .IsUnique();
 
                     b.ToTable("GlassTypes");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Product", b =>
+            modelBuilder.Entity("Domain.Entities.Window", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,9 +79,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("GlassTypeId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
@@ -96,25 +99,24 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GlassTypeId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Product", b =>
-                {
-                    b.HasOne("Domain.Entities.GlassType", "GlassType")
-                        .WithMany("Products")
-                        .HasForeignKey("GlassTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GlassType");
+                    b.ToTable("Windows");
                 });
 
             modelBuilder.Entity("Domain.Entities.GlassType", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("Domain.Entities.Window", "Window")
+                        .WithOne("GlassType")
+                        .HasForeignKey("Domain.Entities.GlassType", "WindowId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Window");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Window", b =>
+                {
+                    b.Navigation("GlassType")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
