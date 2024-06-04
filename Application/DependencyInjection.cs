@@ -16,7 +16,7 @@ namespace Application
         public static IServiceCollection AddApplication(this IServiceCollection services) 
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<IWindowService, WindowService>();
+            services.AddScoped<IDoorService, DoorService>();
             services.AddScoped<IGlassTypeService, GlassTypeService>();
             
 

@@ -13,7 +13,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services) 
         {
-            services.AddScoped<IWindowRepository, WindowRepository>();
+            services.AddScoped<IDoorRepository, DoorRepository>();
             services.AddScoped<IGlassTypeRepository, GlassTypeRepository>();
 
             return services;

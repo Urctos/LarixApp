@@ -1,9 +1,6 @@
 ﻿using Application.Dto.GlassTypesDto;
-using Application.Dto.WindowsDto;
 using Application.Interfaceas;
-using Application.Services;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

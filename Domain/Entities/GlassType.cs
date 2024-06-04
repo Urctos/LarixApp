@@ -22,6 +22,6 @@ namespace Domain.Entities
         public decimal Price { get; set; }
 
 
-        public ICollection<Window> Windows { get; set; }
+        public ICollection<Door> Doors { get; set; }
     }
 }

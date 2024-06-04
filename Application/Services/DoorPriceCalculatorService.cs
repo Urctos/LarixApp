@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class WindowPriceCalculatorService : IWindowPriceCalculatorService
+    public class DoorPriceCalculatorService : IDoorPriceCalculatorService
     {
         public decimal CalculateWindowPrice(decimal woodPrice, decimal glassPrice, decimal margin)
         {

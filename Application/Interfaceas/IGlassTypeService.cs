@@ -1,10 +1,4 @@
 ﻿using Application.Dto.GlassTypesDto;
-using Application.Dto.WindowsDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interfaceas
 {

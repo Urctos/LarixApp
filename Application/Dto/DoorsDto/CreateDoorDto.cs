@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto.WindowsDto
+namespace Application.Dto.DoorsDto
 {
-    public class WindowDto : IMap
+    public class CreateDoorDto : IMap
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double Width { get; set; }
@@ -21,8 +20,7 @@ namespace Application.Dto.WindowsDto
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Window, WindowDto>()
-                .ForMember(dest => dest.GlassTypeId, opt => opt.MapFrom(src => src.GlassTypeId));
+            profile.CreateMap<CreateDoorDto, Door>();
         }
     }
 }
