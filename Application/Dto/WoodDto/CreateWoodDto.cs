@@ -2,18 +2,19 @@
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Dto.DoorsDto
+namespace Application.Dto.WoodDto
 {
-    public class UpdateDoorDto : IMap
+    public class CreateWoodDto : IMap
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public string Unit { get; set; }
+        public double WoodPrice { get; set; }
+
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UpdateDoorDto, Door>();
+            profile.CreateMap<CreateWoodDto, Wood>();
         }
     }
 }

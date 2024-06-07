@@ -18,6 +18,9 @@ namespace Infrastructure.Data
 
         public DbSet<Door> Doors { get; set; }
         public DbSet<GlassType> GlassTypes { get; set; }
+        public DbSet<Hinges> Hinges { get; set; }
+        public DbSet<ImpregnationType> ImpregnationTypes { get; set; }
+        public DbSet<Wood> Woods { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
@@ -44,7 +47,25 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Door>()
                 .HasOne(w => w.GlassType)
                 .WithMany(gt => gt.Doors)
-                .HasForeignKey(w => w.GlassTypeId); 
+                .HasForeignKey(w => w.GlassTypeId);
+
+            modelBuilder.Entity<Door>()
+                .HasOne(d => d.Wood)
+                .WithMany(w => w.Doors)
+                .HasForeignKey(d => d.WoodId);
+
+            modelBuilder.Entity<Door>()
+                .HasOne(d => d.ImpregnationType)
+                .WithMany(it => it.Doors)
+                .HasForeignKey(d => d.ImpregnationTypeId);
+
+
+            modelBuilder.Entity<Door>()
+                .HasOne(d => d.Hinges)
+                .WithMany(h => h.Doors)
+                .HasForeignKey(d => d.HingesId);
+
+
 
             base.OnModelCreating(modelBuilder);
         }

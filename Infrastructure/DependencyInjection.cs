@@ -1,11 +1,6 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -15,6 +10,7 @@ namespace Infrastructure
         {
             services.AddScoped<IDoorRepository, DoorRepository>();
             services.AddScoped<IGlassTypeRepository, GlassTypeRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             return services;
         }

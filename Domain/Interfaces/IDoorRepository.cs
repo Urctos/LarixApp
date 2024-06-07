@@ -9,11 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IDoorRepository
     {
-        Task <IEnumerable<Door>> GetAllAsync(int pageNumber, int pageSize);
-        Task<int> GetAllCountAsync();
-        Task<Door> GetByIdAsync(int id);
-        Task<Door> AddAsync(Door door);
-        Task UpdateAsync(Door door);
-        Task DeleteAsync(Door door);
+
     }
 }

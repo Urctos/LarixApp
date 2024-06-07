@@ -9,10 +9,5 @@ namespace Domain.Interfaces
 {
     public interface IGlassTypeRepository
     {
-        IEnumerable<GlassType> GetAllGlassTypes();
-        GlassType GetGlassTypeId(int id);
-        GlassType AddGlassType(GlassType gLassType);
-        void UpdateGlassType(GlassType gLassType);
-        void DeleteGLassType(GlassType gLassType);
     }
 }

@@ -38,6 +38,25 @@ namespace Domain.Entities
         [ForeignKey("GlassTypeId")]
         public GlassType GlassType { get; set; }
 
+        [Required]
+        public int WoodId { get; set; }
+        [ForeignKey("WoodId")]
+        public Wood Wood { get; set; }
+
+        [Required]
+        public int ImpregnationTypeId { get; set; }
+        [ForeignKey("ImpregnationTypeId")]
+        public ImpregnationType ImpregnationType { get; set; }
+
+
+        [Required]
+        public int HingesId { get; set; }
+        [ForeignKey("HingesId")]
+        public Hinges Hinges { get; set; }
+
+
+
+
 
         public Door() { }
 

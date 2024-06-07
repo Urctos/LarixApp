@@ -1,8 +1,12 @@
 ﻿using Application.Dto.GlassTypesDto;
 using Application.Interfaceas;
 using Asp.Versioning;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using WebAPI.Filters;
+using WebAPI.Helpers;
+using WebAPI.Wrappers;
 
 namespace WebAPI.Controllers
 {
@@ -12,9 +16,9 @@ namespace WebAPI.Controllers
 
     public class GlassTypeController : ControllerBase
     {
-        private readonly IGlassTypeService _glassTypeService;
+        private readonly IGenericService<GlassType, GlassTypeDto, CreateGlassTypeDto, UpdateGlassTypeDto> _glassTypeService;
 
-        public GlassTypeController(IGlassTypeService glassTypeService)
+        public GlassTypeController(IGenericService<GlassType, GlassTypeDto, CreateGlassTypeDto, UpdateGlassTypeDto> glassTypeService)
         {
             _glassTypeService = glassTypeService;
         }
@@ -22,26 +26,28 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Retrieves all glassType")]
         [HttpGet]
-        public IActionResult GetGlassType()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter)
         {
-            var glassType = _glassTypeService.GetAllGlassTypes();
-            return Ok(glassType);
+            var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
+            var glassTypes = await _glassTypeService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
+            var totalRecords = await _glassTypeService.GetAllCountAsync();
+            return Ok(PaginationHelper.CreatePagedResponse(glassTypes, validPaginationFilter, totalRecords));
         }
 
-        
-        [SwaggerOperation(Summary ="Create a new glassType")]
+
+        [SwaggerOperation(Summary = "Create a new glassType")]
         [HttpPost]
-        public IActionResult CreateNewGlassType(CreateGlassTypeDto newGlassType) 
+        public async Task<IActionResult> CreateAsync(CreateGlassTypeDto newGlassType)
         {
-            var glassType = _glassTypeService.AddNewGlassType(newGlassType);
-            return Created($"api/glassTypes/{glassType.GlassTypeId}", glassType);
+            var glassType = await _glassTypeService.AddAsync(newGlassType);
+            return Created($"api/glassTypes/{glassType.GlassTypeId}", new Response<GlassTypeDto>(glassType));
         }
 
         [SwaggerOperation(Summary = " Update a existing glassType")]
         [HttpPut]
         public IActionResult UpdateGlassType(UpdateGlassTypeDto updateGlassType)
         {
-            _glassTypeService.UpdateGlassType(updateGlassType);
+            _glassTypeService.UpdateAsync(updateGlassType);
             return NoContent();
         }
 
@@ -49,10 +55,8 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteGlassType(int id)
         {
-            _glassTypeService.DeleteWGlassType(id);
+            _glassTypeService.DeleteAsync(id);
             return NoContent();
         }
-
-
     }
 }

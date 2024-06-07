@@ -1,6 +1,7 @@
 ﻿using Application.Dto.DoorsDto;
 using Application.Interfaceas;
 using Asp.Versioning;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using WebAPI.Filters;
@@ -14,10 +15,10 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class DoorController : ControllerBase
     {
-        private readonly IDoorService _doorService;
-        public DoorController(IDoorService windowService)
+        private readonly IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> _doorService;
+        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService)
         { 
-            _doorService = windowService;
+            _doorService = doorService;
         }
 
         [SwaggerOperation(Summary = " Retrieves all doors")]
@@ -27,8 +28,8 @@ namespace WebAPI.Controllers
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
 
 
-            var doors = await _doorService.GetAllDoorsAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await _doorService.GetAllDoorsCountAsync();
+            var doors = await _doorService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
+            var totalRecords = await _doorService.GetAllCountAsync();
 
             return Ok(PaginationHelper.CreatePagedResponse(doors, validPaginationFilter, totalRecords));
         }
@@ -37,7 +38,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActionAsync(int id) 
         {
-            var door = await _doorService.GetDoorByIdAsync(id);
+            var door = await _doorService.GetByIdAsync(id);
             if (door == null) 
             {
                 return NotFound();
@@ -49,7 +50,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async  Task<IActionResult> CreateAsync(CreateDoorDto newDoor)
         {
-            var door = await _doorService.AddNewDoorAsync(newDoor);
+            var door = await _doorService.AddAsync(newDoor);
             return Created($"api/doors/{door.Id}", new Response<DoorDto>(door));
         }
 
@@ -57,7 +58,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync (UpdateDoorDto updateDoor)
         {
-            await _doorService.UpdateDoorAsync(updateDoor);
+            await _doorService.UpdateAsync(updateDoor);
             return NoContent();
         }
 
@@ -65,7 +66,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) 
         {
-            await _doorService.DeleteDoorAsync(id);
+            await _doorService.DeleteAsync(id);
             return NoContent();
         }
     }
