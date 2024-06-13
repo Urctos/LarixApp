@@ -21,22 +21,32 @@ namespace WebAPI.Controllers
             _doorService = doorService;
         }
 
+        [SwaggerOperation(Summary = " Retrieves sort doors")]
+        [HttpGet("[action]")]
+        public IActionResult GetSortAsync()
+        {
+            return Ok(SortingHelper.GetSortFields().Select(x => x.Key));
+        }
+
         [SwaggerOperation(Summary = " Retrieves all doors")]
         [HttpGet]
-        public async Task <IActionResult> GetAsync([FromQuery]PaginationFilter paginationFilter)
+        public async Task <IActionResult> GetAllAsync([FromQuery]PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
+            var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
 
 
-            var doors = await _doorService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await _doorService.GetAllCountAsync();
+            var doors = await _doorService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+                                                     validSortingFilter.SortField, validSortingFilter.Ascending,
+                                                     filterBy);
+            var totalRecords = await _doorService.GetAllCountAsync(filterBy);
 
             return Ok(PaginationHelper.CreatePagedResponse(doors, validPaginationFilter, totalRecords));
         }
 
         [SwaggerOperation(Summary = """ Retrieves a specific door by unique id""")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetActionAsync(int id) 
+        public async Task<IActionResult> GetAsync(int id) 
         {
             var door = await _doorService.GetByIdAsync(id);
             if (door == null) 

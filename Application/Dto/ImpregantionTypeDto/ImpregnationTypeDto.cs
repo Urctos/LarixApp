@@ -12,7 +12,7 @@ namespace Application.Dto.ImpregantionTypeDto
 {
     public class ImpregnationTypeDto : IMap
     {
-        public int Id { get; set; }
+        public int ImpregnationTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ManufacturerName { get; set; }

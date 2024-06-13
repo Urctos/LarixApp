@@ -12,6 +12,9 @@ namespace Application.Dto.DoorsDto
         public double Height { get; set; }
         public decimal Price { get; set; }
         public int GlassTypeId { get; set; }
+        public int WoodId { get; set; }
+        public int ImpregnationTypeId { get; set; }
+        public int HingesId { get; set; }
 
         public void Mapping(Profile profile)
         {

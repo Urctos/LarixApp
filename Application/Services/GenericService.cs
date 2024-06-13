@@ -23,15 +23,15 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TDto>> GetAllAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<TDto>> GetAllAsync(int pageNumber, int pageSize, string sortField, bool ascending, string filterBy)
         {
-            var entities = await _repository.GetAllAsync(pageNumber, pageSize);
+            var entities = await _repository.GetAllAsync(pageNumber, pageSize, sortField, ascending, filterBy);
             return _mapper.Map<IEnumerable<TDto>>(entities);
         }
 
-        public async Task<int> GetAllCountAsync()
+        public async Task<int> GetAllCountAsync(string filterBy)
         {
-            return await _repository.GetAllCountAsync();
+            return await _repository.GetAllCountAsync(filterBy);
         }
 
         public async Task<TDto> GetByIdAsync(int id)
@@ -41,7 +41,7 @@ namespace Application.Services
         }
 
         public async Task<TDto> AddAsync(TCreateDto dto)
-        {
+        { 
             var entity = _mapper.Map<TEntity>(dto);
             var result = await _repository.AddAsync(entity);
             return _mapper.Map<TDto>(result);

@@ -25,11 +25,15 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Retrieves all impregnation types")]
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllImpregnationTypesAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
-            var ipregnationTypes = await _impregnationTypeService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await _impregnationTypeService.GetAllCountAsync();
+            var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
+
+            var ipregnationTypes = await _impregnationTypeService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+                                                                              validSortingFilter.SortField, validSortingFilter.Ascending, filterBy);
+
+            var totalRecords = await _impregnationTypeService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(ipregnationTypes, validPaginationFilter, totalRecords));
         }
 
@@ -39,7 +43,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateAsync(CreateImpregnationTypeDto newIpregantionType)
         {
             var impregnationType = await _impregnationTypeService.AddAsync(newIpregantionType);
-            return Created($"api/impregnationTypes/{impregnationType.Id}", new Response<ImpregnationTypeDto>(impregnationType));
+            return Created($"api/impregnationTypes/{impregnationType.ImpregnationTypeId}", new Response<ImpregnationTypeDto>(impregnationType));
 
         }
 

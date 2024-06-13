@@ -26,11 +26,16 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Retrieves all glassType")]
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
-            var glassTypes = await _glassTypeService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await _glassTypeService.GetAllCountAsync();
+            var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
+
+
+            var glassTypes = await _glassTypeService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+                                                                validSortingFilter.SortField, validSortingFilter.Ascending, filterBy);
+
+            var totalRecords = await _glassTypeService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(glassTypes, validPaginationFilter, totalRecords));
         }
 

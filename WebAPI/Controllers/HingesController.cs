@@ -27,11 +27,15 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Retrieves all hinges")]
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
-            var hinges = await _hingesService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await _hingesService.GetAllCountAsync();
+            var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
+
+            var hinges = await _hingesService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+                                                          validSortingFilter.SortField, validSortingFilter.Ascending, filterBy);
+
+            var totalRecords = await _hingesService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(hinges, validPaginationFilter, totalRecords));
         }
 

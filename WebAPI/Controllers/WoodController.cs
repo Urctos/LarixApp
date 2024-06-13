@@ -28,11 +28,15 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Retrieves all woods")]
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
-            var woods = await _woodService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize);
-            var totalRecords = await  _woodService.GetAllCountAsync();
+            var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
+
+            var woods = await _woodService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+                                                       validSortingFilter.SortField, validSortingFilter.Ascending, filterBy);
+
+            var totalRecords = await  _woodService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(woods, validPaginationFilter, totalRecords));
         }
 
@@ -48,7 +52,7 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Update a existing wood types")]
         [HttpPut]
-        public IActionResult Update(UpdateWoodDto updateWoods)
+        public IActionResult Update(UpdateWoodDto updateWoods) 
         {
             _woodService.UpdateAsync(updateWoods);
             return NoContent();

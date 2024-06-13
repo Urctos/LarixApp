@@ -1,5 +1,7 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.ExtensionMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
@@ -13,12 +15,41 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(int pageNumber, int pageSize)
+        //public async Task<IEnumerable<T>> GetAllAsync(int pageNumber, int pageSize, string sortField, bool ascending, string filterBy)
+        //{
+        //    return await _context.Set<T>()
+        //        .Where(m => m.Title.ToLower().Contains(filterBy.ToLower()) || m.Content.ToLower().Contains(filterBy.ToLower()))
+        //        .OrderByPropertyName(sortField, ascending)
+        //        .Skip((pageNumber - 1) * pageSize).Take(pageSize)
+        //        .ToListAsync();
+        //}
+
+        public async Task<IEnumerable<T>> GetAllAsync(int pageNumber, int pageSize, string sortField, bool ascending, string filterBy)
         {
-            return await _context.Set<T>().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            IQueryable<T> query = _context.Set<T>();
+
+            // Dynamiczne filtrowanie
+            if (!string.IsNullOrEmpty(filterBy))
+            {
+                var properties = typeof(T).GetProperties()
+                    .Where(p => p.PropertyType == typeof(string))
+                    .Select(p => p.Name)
+                    .ToList();
+
+                var filterExpression = ExtensionMethod.GenerateFilterExpression<T>(properties, filterBy);
+                query = query.Where(filterExpression);
+            }
+
+            // Dynamiczne sortowanie
+            query = query.OrderByPropertyName(sortField, ascending);
+
+            // Paginacja
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            return await query.ToListAsync();
         }
 
-        public async Task<int> GetAllCountAsync()
+        public async Task<int> GetAllCountAsync(string filterBy)
         {
             return await _context.Set<T>().CountAsync();
         }
