@@ -1,9 +1,11 @@
 ﻿using Application.Dto.DoorsDto;
 using Application.Interfaceas;
+using Application.Validators;
 using Asp.Versioning;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using WebAPI.Attributes;
 using WebAPI.Filters;
 using WebAPI.Helpers;
 using WebAPI.Wrappers;
@@ -56,6 +58,7 @@ namespace WebAPI.Controllers
             return Ok( new Response<DoorDto>(door));
         }
 
+        [ValidateFilter]
         [SwaggerOperation(Summary = " Create a new door")]
         [HttpPost]
         public async  Task<IActionResult> CreateAsync(CreateDoorDto newDoor)

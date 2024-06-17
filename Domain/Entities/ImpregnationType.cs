@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     [Table("ImpregnationTypes")]
-    public class ImpregnationType : AuditableEntity
+    public class ImpregnationType : AuditableEntity, IHasName
     {
         [Key]
         public int Id { get; set; }

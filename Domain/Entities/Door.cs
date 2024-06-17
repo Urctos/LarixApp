@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,13 +11,14 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     [Table("Doors")]
-    public class Door : AuditableEntity
+    public class Door : AuditableEntity, IHasName
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
+        [MinLength(3)]
         public string Name { get; set; }
 
         [Required]

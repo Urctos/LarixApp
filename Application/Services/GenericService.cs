@@ -40,9 +40,22 @@ namespace Application.Services
             return _mapper.Map<TDto>(entity);
         }
 
-        public async Task<TDto> AddAsync(TCreateDto dto)
-        { 
-            var entity = _mapper.Map<TEntity>(dto);
+        public async Task<TDto> AddAsync(TCreateDto newDto)
+        {
+            //if (newDto is IHasName hasNameDto)
+            //{
+            //    if (string.IsNullOrWhiteSpace(hasNameDto.Name))
+            //    {
+            //        throw new ArgumentException("Name cannot be empty or null.", nameof(hasNameDto.Name));
+            //    }
+
+            //    if (hasNameDto.Name.Length < 3)
+            //    {
+            //        throw new ArgumentException("Name cannot be shorter than 3 characters.", nameof(hasNameDto.Name));
+            //    }
+            //}
+
+            var entity = _mapper.Map<TEntity>(newDto);
             var result = await _repository.AddAsync(entity);
             return _mapper.Map<TDto>(result);
         }

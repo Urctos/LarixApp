@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ namespace Domain.Entities
 {
 
     [Table("GlassTypes")]
-    public class GlassType : AuditableEntity
+    public class GlassType : AuditableEntity, IHasName
     {
         [Key]
         public int GlassTypeId { get; set; }
