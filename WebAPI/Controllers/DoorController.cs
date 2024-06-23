@@ -2,9 +2,12 @@
 using Application.Interfaceas;
 using Application.Validators;
 using Asp.Versioning;
+using AutoMapper;
 using Domain.Entities;
+using Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Diagnostics;
 using WebAPI.Attributes;
 using WebAPI.Filters;
 using WebAPI.Helpers;
@@ -18,9 +21,14 @@ namespace WebAPI.Controllers
     public class DoorController : ControllerBase
     {
         private readonly IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> _doorService;
-        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService)
-        { 
+        private readonly PriceCalculator _priceCalculator;
+        private readonly IMapper _mapper;
+
+        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService, PriceCalculator priceCalculator, IMapper mapper)
+        {
             _doorService = doorService;
+            _priceCalculator = priceCalculator;
+            _mapper = mapper;
         }
 
         [SwaggerOperation(Summary = " Retrieves sort doors")]
@@ -32,7 +40,7 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Retrieves all doors")]
         [HttpGet]
-        public async Task <IActionResult> GetAllAsync([FromQuery]PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
         {
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
             var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
@@ -48,20 +56,20 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = """ Retrieves a specific door by unique id""")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id) 
+        public async Task<IActionResult> GetAsync(int id)
         {
             var door = await _doorService.GetByIdAsync(id);
-            if (door == null) 
+            if (door == null)
             {
                 return NotFound();
             }
-            return Ok( new Response<DoorDto>(door));
+            return Ok(new Response<DoorDto>(door));
         }
 
         [ValidateFilter]
         [SwaggerOperation(Summary = " Create a new door")]
         [HttpPost]
-        public async  Task<IActionResult> CreateAsync(CreateDoorDto newDoor)
+        public async Task<IActionResult> CreateAsync(CreateDoorDto newDoor)
         {
             var door = await _doorService.AddAsync(newDoor);
             return Created($"api/doors/{door.Id}", new Response<DoorDto>(door));
@@ -69,7 +77,7 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Update a existing door")]
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync (UpdateDoorDto updateDoor)
+        public async Task<IActionResult> UpdateAsync(UpdateDoorDto updateDoor)
         {
             await _doorService.UpdateAsync(updateDoor);
             return NoContent();
@@ -77,10 +85,33 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = "Delate a specific door")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id) 
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             await _doorService.DeleteAsync(id);
             return NoContent();
+        }
+
+        [SwaggerOperation(Summary = "Calculate and update price of a specific door by id")]
+        [HttpPut("{id}/CalculatePrice")]
+        public async Task<IActionResult> CalculateDoorPriceAsync(int id)
+        {
+            var doorDto = await _doorService.GetByIdAsync(id);
+            if (doorDto == null)
+            {
+                return NotFound();
+            }
+
+            var door = _mapper.Map<Door>(doorDto); // Mapowanie DoorDto na Door
+            var price = await _priceCalculator.CalculatePriceAsync(door); // Obliczanie ceny drzwi
+
+            Debug.WriteLine($"Calculated price for door {door.Id}: {price}");
+
+            doorDto.Price = price;
+            var updateDoorDto = _mapper.Map<UpdateDoorDto>(doorDto); // Mapowanie DoorDto na UpdateDoorDto
+
+            await _doorService.UpdateAsync(updateDoorDto);
+
+            return Ok(new Response<decimal>(price));
         }
     }
 }

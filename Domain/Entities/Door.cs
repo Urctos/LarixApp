@@ -58,13 +58,11 @@ namespace Domain.Entities
 
 
 
-
-
         public Door() { }
 
-        public Door(int id, string name, string description, double width, double height, decimal price, int glassTypeId)
+        public Door(int id, string name, string description, double width, double height, decimal price, int glassTypeId, int woodId, int impregnationTypeId, int hingesId )
         {
-            (Id, Name, Description, Width, Height, Price, GlassTypeId) = (id, name, description, width, height, price, glassTypeId);
+            (Id, Name, Description, Width, Height, Price, GlassTypeId, WoodId, ImpregnationTypeId, HingesId) = (id, name, description, width, height, price, glassTypeId, woodId, impregnationTypeId, hingesId);
         }
     }
 }

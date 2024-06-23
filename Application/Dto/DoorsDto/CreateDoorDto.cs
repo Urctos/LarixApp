@@ -18,7 +18,7 @@ namespace Application.Dto.DoorsDto
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateDoorDto, Door>();
+            profile.CreateMap<CreateDoorDto, Door>();              
         }
     }
 }

@@ -27,9 +27,26 @@ namespace Application.Dto.DoorsDto
             profile.CreateMap<Door, DoorDto>()
                 .ForMember(dest => dest.CreationDate, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.GlassTypeId, opt => opt.MapFrom(src => src.GlassTypeId))
-                .ForMember(dest => dest.WoodId, opt => opt.MapFrom(src => src.Wood.WoodId))
-                .ForMember(dest => dest.ImpregnationTypeId, opt => opt.MapFrom(src => src.ImpregnationType.Id))
-                .ForMember(dest => dest.HingesId, opt => opt.MapFrom(src => src.Hinges.HingesId));
+                .ForMember(dest => dest.WoodId, opt => opt.MapFrom(src => src.WoodId))
+                .ForMember(dest => dest.ImpregnationTypeId, opt => opt.MapFrom(src => src.ImpregnationTypeId))
+                .ForMember(dest => dest.HingesId, opt => opt.MapFrom(src => src.HingesId)); 
+
+            profile.CreateMap<DoorDto, Door>()
+
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.CreationDate))
+                .ForMember(dest => dest.GlassTypeId, opt => opt.MapFrom(src => src.GlassTypeId))
+                .ForMember(dest => dest.WoodId, opt => opt.MapFrom(src => src.WoodId))
+                .ForMember(dest => dest.ImpregnationTypeId, opt => opt.MapFrom(src => src.ImpregnationTypeId))
+                .ForMember(dest => dest.HingesId, opt => opt.MapFrom(src => src.HingesId));
+
+            profile.CreateMap<CreateDoorDto, Door>()
+                .ForMember(dest => dest.GlassTypeId, opt => opt.MapFrom(src => src.GlassTypeId != 0 ? src.GlassTypeId : (int?)null))
+                .ForMember(dest => dest.ImpregnationTypeId, opt => opt.MapFrom(src => src.ImpregnationTypeId != 0 ? src.ImpregnationTypeId : (int?)null))
+                .ForMember(dest => dest.WoodId, opt => opt.MapFrom(src => src.WoodId))
+                .ForMember(dest => dest.HingesId, opt => opt.MapFrom(src => src.HingesId));
+
+            profile.CreateMap<DoorDto, UpdateDoorDto>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price)); 
         }
     }
 }

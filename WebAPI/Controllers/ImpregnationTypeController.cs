@@ -43,29 +43,24 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateAsync(CreateImpregnationTypeDto newIpregantionType)
         {
             var impregnationType = await _impregnationTypeService.AddAsync(newIpregantionType);
-            return Created($"api/impregnationTypes/{impregnationType.ImpregnationTypeId}", new Response<ImpregnationTypeDto>(impregnationType));
+            return Created($"api/impregnationTypes/{impregnationType.Id}", new Response<ImpregnationTypeDto>(impregnationType));
 
         }
 
         [SwaggerOperation(Summary = " Update a existing impregnation type")]
         [HttpPut]
-        public IActionResult Update(UpdateImpregnationTypeDto updateImpregnationTypes)
+        public async Task<IActionResult> Update(UpdateImpregnationTypeDto updateImpregnationTypes)
         {
-            _impregnationTypeService.UpdateAsync(updateImpregnationTypes);
-            {
-                return NoContent();
-            }
+             await _impregnationTypeService.UpdateAsync(updateImpregnationTypes);
+            return NoContent();
         }
 
         [SwaggerOperation(Summary = "Delate a specific impregnation types")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _impregnationTypeService.DeleteAsync(id);
-            {
-                return NoContent();
-            }
-
+             await _impregnationTypeService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

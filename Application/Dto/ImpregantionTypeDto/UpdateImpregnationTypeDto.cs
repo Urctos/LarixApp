@@ -21,7 +21,7 @@ namespace Application.Dto.ImpregantionTypeDto
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateImpregnationTypeDto, ImpregnationType>();
+            profile.CreateMap<UpdateImpregnationTypeDto, ImpregnationType>();
         }
     }
 }

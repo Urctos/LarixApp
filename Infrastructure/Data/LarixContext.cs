@@ -39,6 +39,13 @@ namespace Infrastructure.Data
                     //((AuditableEntity)entityEntry.Entity).CreateBy = _userService.GetUser();   // literówka do poprawy
                 }
             }
+
+            var doors = ChangeTracker.Entries<Door>().Select(e => e.Entity).ToList();
+            foreach (var door in doors)
+            {
+                Console.WriteLine($"Door: {door.Name}, ImpregnationTypeId: {door.ImpregnationTypeId}");
+            }
+
             return await base.SaveChangesAsync();
         }
 
@@ -65,6 +72,9 @@ namespace Infrastructure.Data
                 .WithMany(h => h.Doors)
                 .HasForeignKey(d => d.HingesId);
 
+            modelBuilder.Entity<ImpregnationType>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
 
 
             base.OnModelCreating(modelBuilder);

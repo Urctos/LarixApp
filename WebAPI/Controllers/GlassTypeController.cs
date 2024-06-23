@@ -50,17 +50,17 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Update a existing glassType")]
         [HttpPut]
-        public IActionResult UpdateGlassType(UpdateGlassTypeDto updateGlassType)
+        public async Task <IActionResult> UpdateGlassType(UpdateGlassTypeDto updateGlassType)
         {
-            _glassTypeService.UpdateAsync(updateGlassType);
+            await _glassTypeService.UpdateAsync(updateGlassType);
             return NoContent();
         }
 
         [SwaggerOperation(Summary = "Delate a specific glassType")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteGlassType(int id)
+        public async Task<IActionResult> DeleteGlassType(int id)
         {
-            _glassTypeService.DeleteAsync(id);
+            await _glassTypeService.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -52,17 +52,17 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Update a existing wood types")]
         [HttpPut]
-        public IActionResult Update(UpdateWoodDto updateWoods) 
+        public async Task<IActionResult> Update(UpdateWoodDto updateWoods) 
         {
-            _woodService.UpdateAsync(updateWoods);
+            await _woodService.UpdateAsync(updateWoods);
             return NoContent();
         }
 
         [SwaggerOperation(Summary = "Delate a specific wood type")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-           _woodService.DeleteAsync(id);
+            await _woodService.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -25,7 +25,7 @@ namespace Domain.Entities
         public string Unit {  get; set; }
 
         [Required]
-        public double  WoodPrice { get; set; }
+        public decimal Price { get; set; }
 
         public ICollection<Door> Doors { get; set; }
 

@@ -50,17 +50,17 @@ namespace WebAPI.Controllers
 
         [SwaggerOperation(Summary = " Update a existing hinges")]
         [HttpPut]
-        public IActionResult Update(UpdateHingesDto updateHinges)
+        public  async Task <IActionResult> Update(UpdateHingesDto updateHinges)
         {
-            _hingesService.UpdateAsync(updateHinges);
+            await _hingesService.UpdateAsync(updateHinges);
             return NoContent();
         }
 
         [SwaggerOperation(Summary = "Delate a specific hinges")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task <IActionResult> Delete(int id)
         {
-            _hingesService.DeleteAsync(id);
+            await _hingesService.DeleteAsync(id);
             return NoContent();
         }
     }

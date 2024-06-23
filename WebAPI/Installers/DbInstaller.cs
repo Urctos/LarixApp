@@ -9,7 +9,8 @@ namespace WebAPI.Installers
         public void InstallServices(IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<LarixContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("LarixDB")));
+                options.UseSqlServer(Configuration.GetConnectionString("LarixDB"),
+                sqlServerOptions => sqlServerOptions.CommandTimeout(120)));
         }
     }
 }
