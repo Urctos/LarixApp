@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Dto.DoorsDto
+namespace Application.Dto.DoorsDtos
 {
     public class CreateDoorDto : IMap
     {

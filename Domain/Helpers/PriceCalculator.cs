@@ -72,8 +72,10 @@ namespace Domain.Helpers
             decimal hingesPrice = hinges != null ? hinges.Price : 0;
             decimal impregnationPrice = impregnationType != null ? impregnationType.Price : 0;
 
-            decimal newPrice = glassPrice + woodPrice + impregnationPrice + hingesPrice;
-            return newPrice;
+            decimal newPrice = (glassPrice + woodPrice + impregnationPrice + hingesPrice);
+            decimal finalPrice = newPrice* 1.20m;
+
+            return finalPrice;
         }
     }
 }

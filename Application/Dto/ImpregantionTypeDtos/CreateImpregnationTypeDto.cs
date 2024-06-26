@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto.HingesDto
+namespace Application.Dto.ImpregantionTypeDtos
 {
-    public class CreateHingeDto : IMap
+    public class CreateImpregnationTypeDto : IMap
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace Application.Dto.HingesDto
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateHingeDto, Hinges>();
+            profile.CreateMap<CreateImpregnationTypeDto, ImpregnationType>();
         }
     }
 }

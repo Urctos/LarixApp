@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto.ImpregantionTypeDto
+namespace Application.Dto.ImpregantionTypeDtos
 {
     public class UpdateImpregnationTypeDto : IMap
     {

@@ -4,7 +4,7 @@ using Domain.Entities;
 using System;
 using System.Data;
 
-namespace Application.Dto.DoorsDto
+namespace Application.Dto.DoorsDtos
 {
     public class DoorDto : IMap
     {

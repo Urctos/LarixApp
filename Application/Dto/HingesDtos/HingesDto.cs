@@ -1,15 +1,10 @@
 ﻿using Application.Mappings;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Dto.HingesDto
+namespace Application.Dto.HingesDtos
 {
-    public class UpdateHingesDto : IMap
+    public class HingesDto : IMap
     {
         public int HingesId { get; set; }
         public string Name { get; set; }
@@ -21,7 +16,7 @@ namespace Application.Dto.HingesDto
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UpdateHingesDto, Hinges>();
+            profile.CreateMap<Hinges, HingesDto>();
         }
     }
 }

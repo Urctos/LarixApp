@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Dto.WoodDto
+namespace Application.Dto.WoodDtos
 {
     public class CreateWoodDto : IMap
     {

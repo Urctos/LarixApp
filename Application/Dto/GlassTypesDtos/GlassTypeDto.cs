@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Entities;
 
-namespace Application.Dto.GlassTypesDto
+namespace Application.Dto.GlassTypesDtos
 {
     public class GlassTypeDto : IMap
     {
