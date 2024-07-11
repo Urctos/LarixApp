@@ -56,6 +56,8 @@ namespace Domain.Entities
         [ForeignKey("HingesId")]
         public Hinges Hinges { get; set; }
 
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
 
 
         public Door() { }

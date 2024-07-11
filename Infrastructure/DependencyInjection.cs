@@ -11,6 +11,7 @@ namespace Infrastructure
             services.AddScoped<IDoorRepository, DoorRepository>();
             services.AddScoped<IGlassTypeRepository, GlassTypeRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             return services;
         }

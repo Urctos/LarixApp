@@ -13,16 +13,18 @@ namespace Application.Dto.OrderItemDtos
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int DoorId { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateOrderItemDto, OrderItem>()
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
-               .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
-               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+               .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+               .ForMember(dest => dest.DoorId, opt => opt.MapFrom(src => src.DoorId));
         }
     }
 }

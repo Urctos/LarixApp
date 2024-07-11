@@ -1,4 +1,4 @@
-﻿using Application.Dto.GlassTypesDto;
+﻿using Application.Dto.GlassTypesDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;

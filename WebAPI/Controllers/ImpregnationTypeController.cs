@@ -1,5 +1,5 @@
-﻿using Application.Dto.HingesDto;
-using Application.Dto.ImpregantionTypeDto;
+﻿using Application.Dto.HingesDtos;
+using Application.Dto.ImpregantionTypeDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;

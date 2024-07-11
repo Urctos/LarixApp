@@ -1,4 +1,4 @@
-﻿using Application.Dto.DoorsDto;
+﻿using Application.Dto.DoorsDtos;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

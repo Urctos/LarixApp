@@ -1,8 +1,11 @@
-﻿using Application.Dto.DoorsDto;
-using Application.Dto.GlassTypesDto;
-using Application.Dto.HingesDto;
-using Application.Dto.ImpregantionTypeDto;
-using Application.Dto.WoodDto;
+﻿using Application.Dto.CustomerDtos;
+using Application.Dto.DoorsDtos;
+using Application.Dto.GlassTypesDtos;
+using Application.Dto.HingesDtos;
+using Application.Dto.ImpregantionTypeDtos;
+using Application.Dto.OrderDtos;
+using Application.Dto.OrderItemDtos;
+using Application.Dto.WoodDtos;
 using Application.Interfaceas;
 using Application.Services;
 using Domain.Entities;
@@ -28,7 +31,14 @@ namespace Application
             services.AddScoped(typeof(IGenericService<Hinges, HingesDto, CreateHingeDto, UpdateHingesDto>), typeof(GenericService<Hinges, HingesDto, CreateHingeDto, UpdateHingesDto>));
             services.AddScoped(typeof(IGenericService<Wood, WoodDto, CreateWoodDto, UpdateWoodDto>), typeof(GenericService<Wood, WoodDto, CreateWoodDto, UpdateWoodDto>));
             services.AddScoped(typeof(IGenericService<ImpregnationType, ImpregnationTypeDto, CreateImpregnationTypeDto, UpdateImpregnationTypeDto>), typeof(GenericService<ImpregnationType, ImpregnationTypeDto, CreateImpregnationTypeDto, UpdateImpregnationTypeDto>));
+            services.AddScoped(typeof(IGenericService<Customer, CustomerDto, CreateCustomerDto, UpdateCustomerDto>), typeof(GenericService<Customer, CustomerDto, CreateCustomerDto, UpdateCustomerDto>));
+            services.AddScoped(typeof(IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto>), typeof(GenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto>));
+            services.AddScoped(typeof(IGenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto>), typeof(GenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto>));
+            
             services.AddScoped<IDoorService, DoorService>();
+            services.AddScoped<IOrderItemService, OrderItemService>();
+            services.AddScoped<IOrderService, OrderService>();
+            
             return services;
         }        
     }

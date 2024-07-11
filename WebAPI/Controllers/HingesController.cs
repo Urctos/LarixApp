@@ -1,5 +1,5 @@
-﻿using Application.Dto.GlassTypesDto;
-using Application.Dto.HingesDto;
+﻿using Application.Dto.GlassTypesDtos;
+using Application.Dto.HingesDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;

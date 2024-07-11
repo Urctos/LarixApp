@@ -13,12 +13,22 @@ namespace Domain.Entities
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         public string ProductName { get; set; }
-        public decimal UnitPrice { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
+
+        [Required]
         public int Quantity { get; set; }
 
         [ForeignKey("Order")]
         public int OrderId { get; set; }
         public Order Order { get; set; }
+
+        [ForeignKey("Door")]
+        public int DoorId { get; set; }
+        public Door Door { get; set; }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Application.Dto.ImpregantionTypeDto;
-using Application.Dto.WoodDto;
+﻿using Application.Dto.ImpregantionTypeDtos;
+using Application.Dto.WoodDtos;
+using Application.Dto.WoodDtos;
 using Application.Interfaceas;
 using Application.Services;
 using Asp.Versioning;

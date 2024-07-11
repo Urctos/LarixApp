@@ -21,6 +21,10 @@ namespace Infrastructure.Data
         public DbSet<Hinges> Hinges { get; set; }
         public DbSet<ImpregnationType> ImpregnationTypes { get; set; }
         public DbSet<Wood> Woods { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
 
         public async Task<int> SaveChangesAsync()
         {
@@ -40,11 +44,11 @@ namespace Infrastructure.Data
                 }
             }
 
-            var doors = ChangeTracker.Entries<Door>().Select(e => e.Entity).ToList();
-            foreach (var door in doors)
-            {
-                Console.WriteLine($"Door: {door.Name}, ImpregnationTypeId: {door.ImpregnationTypeId}");
-            }
+            //var doors = ChangeTracker.Entries<Door>().Select(e => e.Entity).ToList();
+            //foreach (var door in doors)
+            //{
+            //    Console.WriteLine($"Door: {door.Name}, ImpregnationTypeId: {door.ImpregnationTypeId}");
+            //}
 
             return await base.SaveChangesAsync();
         }

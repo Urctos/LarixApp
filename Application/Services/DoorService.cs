@@ -1,4 +1,4 @@
-﻿using Application.Dto.DoorsDto;
+﻿using Application.Dto.DoorsDtos;
 using Application.Interfaceas;
 using AutoMapper;
 using Domain.Entities;
