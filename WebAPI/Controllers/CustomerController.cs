@@ -1,5 +1,4 @@
 ﻿using Application.Dto.CustomerDtos;
-using Application.Dto.GlassTypesDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;
@@ -22,7 +21,6 @@ namespace WebAPI.Controllers
         {
             _customerService = customerService;
         }
-
 
 
         [SwaggerOperation(Summary = "Retrieves all customers")]
@@ -49,6 +47,7 @@ namespace WebAPI.Controllers
             return Created($"api/customers/{customer.Id}", new Response<CustomerDto>(customer));
         }
 
+
         [SwaggerOperation(Summary = " Update a existing customer")]
         [HttpPut]
         public async Task<IActionResult> UpdateCustomer(UpdateCustomerDto updateCustomer)
@@ -56,6 +55,7 @@ namespace WebAPI.Controllers
             await _customerService.UpdateAsync(updateCustomer);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delate a specific glassType")]
         [HttpDelete("{id}")]

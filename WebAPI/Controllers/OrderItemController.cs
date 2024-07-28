@@ -14,12 +14,12 @@ namespace WebAPI.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]")]
-
     public class OrderItemController : ControllerBase
     {
         private readonly IGenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto> _orderItemService;
         private readonly IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto> _orderService;
         private readonly IOrderItemService _addingOrderItemService;
+
 
         public OrderItemController(IGenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto> orderItemService,
                                    IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto> orderService,IOrderItemService addingOrderItemService)
@@ -28,6 +28,7 @@ namespace WebAPI.Controllers
             _orderService = orderService;
             _addingOrderItemService = addingOrderItemService;           
         }
+
 
         [SwaggerOperation(Summary = "Retrieves all order items")]
         [HttpGet]
@@ -40,6 +41,7 @@ namespace WebAPI.Controllers
             var totalRecords = await _orderItemService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(orderItems, validPaginationFilter, totalRecords));
         }
+
 
         [SwaggerOperation(Summary = "Create a new order item")]
         [HttpPost]
@@ -64,6 +66,7 @@ namespace WebAPI.Controllers
             return Created($"api/orderitem/{orderItem.Id}", new Response<OrderItemDto>(orderItem));
         }
 
+
         [SwaggerOperation(Summary = "Update an existing order item")]
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UpdateOrderItemDto updateOrderItem)
@@ -71,6 +74,7 @@ namespace WebAPI.Controllers
             await _orderItemService.UpdateAsync(updateOrderItem);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delete a specific order item")]
         [HttpDelete("{id}")]

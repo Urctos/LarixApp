@@ -8,7 +8,6 @@ namespace Application.Dto.OrderDtos
 {
     public class UpdateOrderDto : IMap
     {
-
         public int Id { get; set; }
         public decimal NetPrice { get; set; }
         public decimal VatRate { get; set; }

@@ -1,7 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Query;
-using WebAPI.Wrappers;
+﻿using WebAPI.Wrappers;
 
 namespace WebAPI.MIddelwares
 {

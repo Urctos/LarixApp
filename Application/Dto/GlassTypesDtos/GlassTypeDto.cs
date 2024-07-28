@@ -7,13 +7,13 @@ namespace Application.Dto.GlassTypesDtos
     public class GlassTypeDto : IMap
     {
 
-            public int GlassTypeId { get; set; }
-            public string Name { get; set; }
-            public decimal Price { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
 
-            public void Mapping(Profile profile)
-            {
-                profile.CreateMap<GlassType, GlassTypeDto>();
-            }
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<GlassType, GlassTypeDto>();
+        }
     }
 }

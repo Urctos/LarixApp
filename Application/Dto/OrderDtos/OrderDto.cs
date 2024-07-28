@@ -8,7 +8,6 @@ namespace Application.Dto.OrderDtos
 {
     public class OrderDto : IMap
     {
-
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal NetPrice { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Application.Dto.DoorsDtos;
 using Application.Interfaceas;
-using Application.Validators;
 using Asp.Versioning;
 using AutoMapper;
 using Domain.Entities;
@@ -31,12 +30,14 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+
         [SwaggerOperation(Summary = " Retrieves sort doors")]
         [HttpGet("[action]")]
         public IActionResult GetSortAsync()
         {
             return Ok(SortingHelper.GetSortFields().Select(x => x.Key));
         }
+
 
         [SwaggerOperation(Summary = " Retrieves all doors")]
         [HttpGet]
@@ -54,6 +55,7 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(doors, validPaginationFilter, totalRecords));
         }
 
+
         [SwaggerOperation(Summary = """ Retrieves a specific door by unique id""")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
@@ -65,6 +67,7 @@ namespace WebAPI.Controllers
             }
             return Ok(new Response<DoorDto>(door));
         }
+
 
         [ValidateFilter]
         [SwaggerOperation(Summary = " Create a new door")]
@@ -83,6 +86,7 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
+
         [SwaggerOperation(Summary = "Delate a specific door")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
@@ -90,6 +94,7 @@ namespace WebAPI.Controllers
             await _doorService.DeleteAsync(id);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Calculate and update price of a specific door by id")]
         [HttpPut("{id}/CalculatePrice")]

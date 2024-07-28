@@ -13,7 +13,6 @@ namespace WebAPI.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]")]
-
     public class GlassTypeController : ControllerBase
     {
         private readonly IGenericService<GlassType, GlassTypeDto, CreateGlassTypeDto, UpdateGlassTypeDto> _glassTypeService;
@@ -45,8 +44,9 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateAsync(CreateGlassTypeDto newGlassType)
         {
             var glassType = await _glassTypeService.AddAsync(newGlassType);
-            return Created($"api/glassTypes/{glassType.GlassTypeId}", new Response<GlassTypeDto>(glassType));
+            return Created($"api/glassTypes/{glassType.Id}", new Response<GlassTypeDto>(glassType));
         }
+
 
         [SwaggerOperation(Summary = " Update a existing glassType")]
         [HttpPut]
@@ -55,6 +55,7 @@ namespace WebAPI.Controllers
             await _glassTypeService.UpdateAsync(updateGlassType);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delate a specific glassType")]
         [HttpDelete("{id}")]

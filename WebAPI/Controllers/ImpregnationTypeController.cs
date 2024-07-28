@@ -47,6 +47,7 @@ namespace WebAPI.Controllers
 
         }
 
+
         [SwaggerOperation(Summary = " Update a existing impregnation type")]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateImpregnationTypeDto updateImpregnationTypes)
@@ -54,6 +55,7 @@ namespace WebAPI.Controllers
              await _impregnationTypeService.UpdateAsync(updateImpregnationTypes);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delate a specific impregnation types")]
         [HttpDelete("{id}")]

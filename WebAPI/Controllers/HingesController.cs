@@ -1,5 +1,4 @@
-﻿using Application.Dto.GlassTypesDtos;
-using Application.Dto.HingesDtos;
+﻿using Application.Dto.HingesDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;
@@ -45,8 +44,9 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateAsync(CreateHingeDto newHinges)
         {
             var hinges = await _hingesService.AddAsync(newHinges);
-            return Created($"api/hinges/{hinges.HingesId}", new Response<HingesDto>(hinges));
+            return Created($"api/hinges/{hinges.Id}", new Response<HingesDto>(hinges));
         }
+
 
         [SwaggerOperation(Summary = " Update a existing hinges")]
         [HttpPut]
@@ -55,6 +55,7 @@ namespace WebAPI.Controllers
             await _hingesService.UpdateAsync(updateHinges);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delate a specific hinges")]
         [HttpDelete("{id}")]

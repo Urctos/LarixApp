@@ -4,10 +4,9 @@ using Domain.Entities;
 
 namespace Application.Dto.GlassTypesDtos
 {
-
     public class UpdateGlassTypeDto : IMap
     {
-        public int GlassTypeId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
 

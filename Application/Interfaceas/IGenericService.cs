@@ -1,13 +1,4 @@
-﻿using Application.Dto.DoorsDtos;
-using Application.Dto.OrderDtos;
-using Application.Dto.OrderItemDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Interfaceas
+﻿namespace Application.Interfaceas
 {
     public interface IGenericService<TEntity, TDto, TCreateDto, TUpdateDto>
     {

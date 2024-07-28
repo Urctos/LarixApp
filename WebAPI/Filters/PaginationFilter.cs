@@ -16,7 +16,6 @@
         {
             PageNumber = pageNumber < 1 ? 1 : pageNumber;
             PageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
-
         }
     }
 }

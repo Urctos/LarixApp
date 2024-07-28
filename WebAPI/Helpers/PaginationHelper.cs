@@ -18,7 +18,6 @@ namespace WebAPI.Helpers
             response.NextPage = curentPage < roundedTotalPages ? true : false;
 
             return response;
-
         }
     }
 }

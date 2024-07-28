@@ -1,8 +1,7 @@
 ﻿using Application.Mappings;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Data;
+
 
 namespace Application.Dto.DoorsDtos
 {
@@ -19,7 +18,6 @@ namespace Application.Dto.DoorsDtos
         public int WoodId { get; set; }
         public int ImpregnationTypeId { get; set; }
         public int HingesId { get; set; }
-
 
 
         public void Mapping(Profile profile)

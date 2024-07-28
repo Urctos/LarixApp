@@ -1,5 +1,4 @@
-﻿
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Installers

@@ -1,8 +1,5 @@
-﻿using Application.Dto.ImpregantionTypeDtos;
-using Application.Dto.WoodDtos;
-using Application.Dto.WoodDtos;
+﻿using Application.Dto.WoodDtos;
 using Application.Interfaceas;
-using Application.Services;
 using Asp.Versioning;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -47,9 +44,10 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateAsync(CreateWoodDto newWood)
         {
             var wood = await _woodService.AddAsync(newWood);
-            return Created($"api/woods/{wood.WoodId}", new Response<WoodDto>(wood));
+            return Created($"api/woods/{wood.Id}", new Response<WoodDto>(wood));
 
         }
+
 
         [SwaggerOperation(Summary = " Update a existing wood types")]
         [HttpPut]
@@ -58,6 +56,7 @@ namespace WebAPI.Controllers
             await _woodService.UpdateAsync(updateWoods);
             return NoContent();
         }
+
 
         [SwaggerOperation(Summary = "Delate a specific wood type")]
         [HttpDelete("{id}")]

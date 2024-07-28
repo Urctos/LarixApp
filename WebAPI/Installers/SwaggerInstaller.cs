@@ -1,5 +1,4 @@
-﻿
-namespace WebAPI.Installers
+﻿namespace WebAPI.Installers
 {
     public class SwaggerInstaller : IInstaller
     {
@@ -8,7 +7,6 @@ namespace WebAPI.Installers
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();
-
             });
         }
     }

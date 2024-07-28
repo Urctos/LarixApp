@@ -11,7 +11,6 @@ namespace Application.Dto.WoodDtos
         public string Unit { get; set; }
         public double Price { get; set; }
 
-
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateWoodDto, Wood>();
