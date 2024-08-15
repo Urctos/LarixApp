@@ -18,6 +18,8 @@ namespace WebAPI.Installers
             services.AddApplication();
             services.AddInfrastructure();
 
+            services.AddMemoryCache();
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.DefaultRequestCulture = new RequestCulture("en-US");

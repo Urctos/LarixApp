@@ -6,7 +6,7 @@ namespace Infrastructure.Data
 {
     public class LarixContext : DbContext
     {
-        public LarixContext(DbContextOptions options) : base(options)
+        public LarixContext(DbContextOptions<LarixContext> options) : base(options)
         {
                 
         }

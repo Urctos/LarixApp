@@ -1,32 +1,59 @@
-
-
-using Application.Interfaceas;
-using Application.Mappings;
-using Application.Services;
-using Domain.Interfaces;
-using Infrastructure.Repositories;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using WebAPI.Installers;
 using WebAPI.MIddelwares;
-
-var builder = WebApplication.CreateBuilder(args);
-
-
-builder.Services.InstallServicesInAssembly(builder.Configuration);
+using NLog;
+using NLog.Web;
 
 
-var app = builder.Build();
-
-app.MapControllers();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseNLog();
+
+        builder.Services.InstallServicesInAssembly(builder.Configuration);
+
+        var app = builder.Build();
+;
+
+        app.UseRouting();
+
+        app.UseMiddleware<ErrorHandlingMiddelware>();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+        }
+
+        app.MapControllers();
+
+        app.MapHealthChecks("/health", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        app.MapHealthChecksUI();
+
+        var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+        try
+        {
+            //throw new Exception("Fatal error!");
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            logger.Fatal(ex, "Application stopped because of exception");
+            throw;
+        }
+        finally
+        {
+            LogManager.Shutdown();
+        }
+    }
 }
-
-app.UseMiddleware<ErrorHandlingMiddelware>();
-
-
-app.Run();
-

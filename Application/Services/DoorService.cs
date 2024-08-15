@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Helpers;
 using Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 
 namespace Application.Services
@@ -14,8 +15,8 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IRepository<Door> _repository;
 
-        public DoorService(IRepository<Door> repository, IMapper mapper, PriceCalculator priceCalculator)
-            : base(repository, mapper)
+        public DoorService(IRepository<Door> repository, IMapper mapper, PriceCalculator priceCalculator, ILogger<DoorService> logger)
+            : base(repository, mapper, (ILogger<Door>)logger)
         {
             _repository = repository;
             _mapper = mapper;

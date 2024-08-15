@@ -1,6 +1,7 @@
 ﻿using Application.Interfaceas;
 using AutoMapper;
 using Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
@@ -9,15 +10,20 @@ namespace Application.Services
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
+        private readonly ILogger<TEntity> _logger;
 
-        public GenericService(IRepository<TEntity> repository, IMapper mapper)
+        public GenericService(IRepository<TEntity> repository, IMapper mapper, ILogger<TEntity> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<TDto>> GetAllAsync(int pageNumber, int pageSize, string sortField, bool ascending, string filterBy)
         {
+            _logger.LogDebug("Fetching doors");
+            _logger.LogInformation($"pageNumber: { pageNumber} | pageSize: {pageSize}");
+
             var entities = await _repository.GetAllAsync(pageNumber, pageSize, sortField, ascending, filterBy);
             return _mapper.Map<IEnumerable<TDto>>(entities);
         }

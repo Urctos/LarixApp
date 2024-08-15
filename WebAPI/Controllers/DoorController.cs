@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Diagnostics;
 using WebAPI.Attributes;
@@ -22,12 +23,15 @@ namespace WebAPI.Controllers
         private readonly IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> _doorService;
         private readonly PriceCalculator _priceCalculator;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _memoryCache; 
 
-        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService, PriceCalculator priceCalculator, IMapper mapper)
+        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService, PriceCalculator priceCalculator
+                              , IMapper mapper, IMemoryCache memoryCache)
         {
             _doorService = doorService;
             _priceCalculator = priceCalculator;
             _mapper = mapper;
+            _memoryCache = memoryCache;
         }
 
 

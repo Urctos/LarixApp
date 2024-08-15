@@ -3,6 +3,7 @@ using Application.Interfaceas;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 
 namespace Application.Services
@@ -13,14 +14,16 @@ namespace Application.Services
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly IMapper _mapper;
         private readonly IRepository<Order> _orderRepository;
+        private readonly ILogger _logger;
 
-        public OrderItemService(IOrderItemRepository orderItemrepository, IRepository<Door> doorRepository, IMapper mapper,IRepository<Order> orderRepository )
-            : base(orderItemrepository, mapper)
+        public OrderItemService(IOrderItemRepository orderItemrepository, IRepository<Door> doorRepository, IMapper mapper,IRepository<Order> orderRepository, ILogger<OrderItemService> logger)
+            : base(orderItemrepository, mapper, (ILogger<OrderItem>)logger)
         {
             _doorRepository = doorRepository;
             _orderItemRepository = orderItemrepository;
             _mapper = mapper;
             _orderRepository = orderRepository;
+            _logger = logger;
         }
 
         public  async Task<OrderItemDto> AddOrderItemAsync(CreateOrderItemDto newDto)
