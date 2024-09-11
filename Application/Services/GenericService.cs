@@ -10,9 +10,9 @@ namespace Application.Services
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
-        private readonly ILogger<TEntity> _logger;
+        private readonly ILogger<GenericService<TEntity, TDto, TCreateDto, TUpdateDto>> _logger;
 
-        public GenericService(IRepository<TEntity> repository, IMapper mapper, ILogger<TEntity> logger)
+        public GenericService(IRepository<TEntity> repository, IMapper mapper, ILogger<GenericService<TEntity, TDto, TCreateDto, TUpdateDto>> logger)
         {
             _repository = repository;
             _mapper = mapper;

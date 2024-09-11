@@ -17,7 +17,7 @@ namespace Application.Services
         private readonly ILogger _logger;
 
         public OrderItemService(IOrderItemRepository orderItemrepository, IRepository<Door> doorRepository, IMapper mapper,IRepository<Order> orderRepository, ILogger<OrderItemService> logger)
-            : base(orderItemrepository, mapper, (ILogger<OrderItem>)logger)
+            : base(orderItemrepository, mapper, logger)
         {
             _doorRepository = doorRepository;
             _orderItemRepository = orderItemrepository;

@@ -15,12 +15,15 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IRepository<Door> _repository;
 
+
+
         public DoorService(IRepository<Door> repository, IMapper mapper, PriceCalculator priceCalculator, ILogger<DoorService> logger)
-            : base(repository, mapper, (ILogger<Door>)logger)
+            : base(repository, mapper, logger)
         {
             _repository = repository;
             _mapper = mapper;
             _priceCalculator = priceCalculator;
+            
         }
 
         public async Task<decimal> CalculateDoorPriceAsync(int doorId)
