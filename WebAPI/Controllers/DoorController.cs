@@ -4,6 +4,7 @@ using Asp.Versioning;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Helpers;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
@@ -21,11 +22,11 @@ namespace WebAPI.Controllers
     public class DoorController : ControllerBase
     {
         private readonly IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> _doorService;
-        private readonly PriceCalculator _priceCalculator;
+        private readonly IPriceCalculator _priceCalculator;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _memoryCache; 
 
-        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService, PriceCalculator priceCalculator
+        public DoorController(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto> doorService, IPriceCalculator priceCalculator
                               , IMapper mapper, IMemoryCache memoryCache)
         {
             _doorService = doorService;

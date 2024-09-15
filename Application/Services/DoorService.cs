@@ -11,13 +11,13 @@ namespace Application.Services
 {
     public class DoorService : GenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto>, IDoorService
     {
-        private readonly PriceCalculator _priceCalculator;
+        private readonly IPriceCalculator _priceCalculator;
         private readonly IMapper _mapper;
         private readonly IRepository<Door> _repository;
 
 
 
-        public DoorService(IRepository<Door> repository, IMapper mapper, PriceCalculator priceCalculator, ILogger<DoorService> logger)
+        public DoorService(IRepository<Door> repository, IMapper mapper, IPriceCalculator priceCalculator, ILogger<DoorService> logger)
             : base(repository, mapper, logger)
         {
             _repository = repository;

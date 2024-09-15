@@ -10,6 +10,7 @@ using Application.Interfaceas;
 using Application.Services;
 using Domain.Entities;
 using Domain.Helpers;
+using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -24,7 +25,7 @@ namespace Application
             //services.AddScoped<IDoorService, DoorService>();
             //services.AddScoped<IGlassTypeService, GlassTypeService>();
 
-            services.AddScoped<PriceCalculator>();
+            services.AddScoped<IPriceCalculator, PriceCalculator>();
 
             services.AddScoped(typeof(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto>), typeof(GenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto>));
             services.AddScoped(typeof(IGenericService<GlassType, GlassTypeDto, CreateGlassTypeDto, UpdateGlassTypeDto>), typeof(GenericService<GlassType, GlassTypeDto, CreateGlassTypeDto, UpdateGlassTypeDto>));

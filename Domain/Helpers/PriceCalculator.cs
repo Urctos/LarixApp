@@ -3,7 +3,7 @@ using Domain.Interfaces;
 
 namespace Domain.Helpers
 {
-    public class PriceCalculator
+    public class PriceCalculator : IPriceCalculator
     {
         private readonly IRepository<GlassType> _glassTypeRepository;
         private readonly IRepository<Wood> _woodRepository;
