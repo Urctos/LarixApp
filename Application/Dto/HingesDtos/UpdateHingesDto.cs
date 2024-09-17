@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.HingesDtos
 {
     public class UpdateHingesDto : IMap

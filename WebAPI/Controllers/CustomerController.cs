@@ -22,7 +22,6 @@ namespace WebAPI.Controllers
             _customerService = customerService;
         }
 
-
         [SwaggerOperation(Summary = "Retrieves all customers")]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
@@ -30,14 +29,12 @@ namespace WebAPI.Controllers
             var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
             var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
 
-
             var customers = await _customerService.GetAllAsync(validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
                                                                 validSortingFilter.SortField, validSortingFilter.Ascending, filterBy);
 
             var totalRecords = await _customerService.GetAllCountAsync(filterBy);
             return Ok(PaginationHelper.CreatePagedResponse(customers, validPaginationFilter, totalRecords));
         }
-
 
         [SwaggerOperation(Summary = "Create a new customer")]
         [HttpPost]
@@ -47,7 +44,6 @@ namespace WebAPI.Controllers
             return Created($"api/customers/{customer.Id}", new Response<CustomerDto>(customer));
         }
 
-
         [SwaggerOperation(Summary = " Update a existing customer")]
         [HttpPut]
         public async Task<IActionResult> UpdateCustomer(UpdateCustomerDto updateCustomer)
@@ -55,7 +51,6 @@ namespace WebAPI.Controllers
             await _customerService.UpdateAsync(updateCustomer);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Delate a specific glassType")]
         [HttpDelete("{id}")]

@@ -21,10 +21,6 @@ namespace Application
         public static IServiceCollection AddApplication(this IServiceCollection services) 
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-            //services.AddScoped<IDoorService, DoorService>();
-            //services.AddScoped<IGlassTypeService, GlassTypeService>();
-
             services.AddScoped<IPriceCalculator, PriceCalculator>();
 
             services.AddScoped(typeof(IGenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto>), typeof(GenericService<Door, DoorDto, CreateDoorDto, UpdateDoorDto>));
@@ -39,7 +35,7 @@ namespace Application
             services.AddScoped<IDoorService, DoorService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IOrderService, OrderService>();
-            
+        
             return services;
         }        
     }

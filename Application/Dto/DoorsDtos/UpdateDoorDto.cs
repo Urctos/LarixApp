@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain.Entities;
 
 namespace Application.Dto.DoorsDtos
-
 {
     public class UpdateDoorDto : IMap
     {

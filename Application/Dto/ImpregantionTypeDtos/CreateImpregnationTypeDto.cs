@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.ImpregantionTypeDtos
 {
     public class CreateImpregnationTypeDto : IMap

@@ -7,8 +7,7 @@ namespace Infrastructure.Data
     public class LarixContext : DbContext
     {
         public LarixContext(DbContextOptions<LarixContext> options) : base(options)
-        {
-                
+        {     
         }
 
         public DbSet<Door> Doors { get; set; }
@@ -19,7 +18,6 @@ namespace Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
 
         public async Task<int> SaveChangesAsync()
         {
@@ -38,13 +36,11 @@ namespace Infrastructure.Data
                     //((AuditableEntity)entityEntry.Entity).CreateBy = _userService.GetUser();   // literówka do poprawy
                 }
             }
-
             //var doors = ChangeTracker.Entries<Door>().Select(e => e.Entity).ToList();
             //foreach (var door in doors)
             //{
             //    Console.WriteLine($"Door: {door.Name}, ImpregnationTypeId: {door.ImpregnationTypeId}");
             //}
-
             return await base.SaveChangesAsync();
         }
 
@@ -65,7 +61,6 @@ namespace Infrastructure.Data
                 .WithMany(it => it.Doors)
                 .HasForeignKey(d => d.ImpregnationTypeId);
 
-
             modelBuilder.Entity<Door>()
                 .HasOne(d => d.Hinges)
                 .WithMany(h => h.Doors)
@@ -74,7 +69,6 @@ namespace Infrastructure.Data
             modelBuilder.Entity<ImpregnationType>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18,2)");
-
 
             base.OnModelCreating(modelBuilder);
         }

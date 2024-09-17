@@ -45,15 +45,12 @@ namespace Domain.Entities
         [ForeignKey("ImpregnationTypeId")]
         public ImpregnationType ImpregnationType { get; set; }
 
-
         [Required]
         public int HingesId { get; set; }
         [ForeignKey("HingesId")]
         public Hinges Hinges { get; set; }
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
-
 
         public Door() { }
 

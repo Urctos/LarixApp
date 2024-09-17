@@ -14,7 +14,6 @@ namespace WebAPI.Filters
         public SortingFilter(string sortField, bool ascending)
         {
             var sortFields = SortingHelper.GetSortFields();
-
             sortField = sortField.ToLower();
 
             if (sortFields.Select(x => x.Key).Contains(sortField.ToLower()))

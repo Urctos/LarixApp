@@ -9,7 +9,6 @@
 
         public Response()
         {
-            
         }
         public Response(T data)
         {
@@ -24,7 +23,6 @@
 
         public Response()
         {
-            
         }
 
         public Response(bool succeeded, string message)

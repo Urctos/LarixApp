@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.CustomerDtos
 {
     public class UpdateCustomerDto : IMap
@@ -28,7 +27,6 @@ namespace Application.Dto.CustomerDtos
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Street))
                 .ForMember(dest => dest.HouseNumber, opt => opt.MapFrom(src => src.HouseNumber))
                 .ForMember(dest => dest.FirstName, opt => opt.Ignore());
-
         }
     }
 }

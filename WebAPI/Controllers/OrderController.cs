@@ -20,7 +20,6 @@ namespace WebAPI.Controllers
         private readonly IOrderItemService _orderItemService;
         private readonly IOrderService _addOrderService;
 
-
         public OrderController(IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto> orderService,
                               IOrderItemService orderItemService,
                               IOrderService addOrderService)                      
@@ -29,7 +28,6 @@ namespace WebAPI.Controllers
             _orderItemService = orderItemService;
             _addOrderService = addOrderService;
         }
-
 
         [SwaggerOperation(Summary = "Retrieves all orders")]
         [HttpGet]
@@ -43,7 +41,6 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(orders, validPaginationFilter, totalRecords));
         }
 
-
         [SwaggerOperation(Summary = "Create a new order")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateOrderDto newOrder)
@@ -51,7 +48,6 @@ namespace WebAPI.Controllers
             var order = await _orderService.AddAsync(newOrder);
             return Created($"api/order/{order.Id}", new Response<OrderDto>(order));
         }
-
 
         [SwaggerOperation(Summary = "Update an existing order")]
         [HttpPut]
@@ -61,7 +57,6 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-
         [SwaggerOperation(Summary = "Delete a specific order")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
@@ -69,7 +64,6 @@ namespace WebAPI.Controllers
             await _orderService.DeleteAsync(id);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Update order prices")]
         [HttpPut("update-prices/{orderId}")]
@@ -85,6 +79,5 @@ namespace WebAPI.Controllers
                 return BadRequest(new Response<string>(ex.Message));
             }
         }
-
     }
 }

@@ -19,6 +19,5 @@ namespace Application.Validators
 
             #endregion
         }
-
     }
 }

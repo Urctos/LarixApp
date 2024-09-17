@@ -39,10 +39,8 @@ namespace Infrastructure.Repositories
                 query = query.Where(filterExpression);
             }
 
-            // Dynamiczne sortowanie
             query = query.OrderByPropertyName(sortField, ascending);
 
-            // Paginacja
             query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
             return await query.ToListAsync();

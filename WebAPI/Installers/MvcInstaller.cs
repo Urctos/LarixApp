@@ -1,5 +1,4 @@
-﻿
-using Application;
+﻿using Application;
 using Application.Validators;
 using Asp.Versioning;
 using FluentValidation.AspNetCore;
@@ -26,7 +25,6 @@ namespace WebAPI.Installers
                 options.SupportedCultures = new[] { new CultureInfo("en-US") };
                 options.SupportedUICultures = new[] { new CultureInfo("en-US") };
             });
-
 
             services.AddApiVersioning(x =>
             {

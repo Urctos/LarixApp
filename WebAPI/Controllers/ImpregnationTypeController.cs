@@ -1,5 +1,4 @@
-﻿using Application.Dto.HingesDtos;
-using Application.Dto.ImpregantionTypeDtos;
+﻿using Application.Dto.ImpregantionTypeDtos;
 using Application.Interfaceas;
 using Asp.Versioning;
 using Domain.Entities;
@@ -22,7 +21,6 @@ namespace WebAPI.Controllers
             _impregnationTypeService = impregnationTypeService;
         }
 
-
         [SwaggerOperation(Summary = "Retrieves all impregnation types")]
         [HttpGet]
         public async Task<IActionResult> GetAllImpregnationTypesAsync([FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string filterBy = "")
@@ -37,16 +35,13 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(ipregnationTypes, validPaginationFilter, totalRecords));
         }
 
-
         [SwaggerOperation(Summary = "Create a new impregnation type")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateImpregnationTypeDto newIpregantionType)
         {
             var impregnationType = await _impregnationTypeService.AddAsync(newIpregantionType);
             return Created($"api/impregnationTypes/{impregnationType.Id}", new Response<ImpregnationTypeDto>(impregnationType));
-
         }
-
 
         [SwaggerOperation(Summary = " Update a existing impregnation type")]
         [HttpPut]
@@ -55,7 +50,6 @@ namespace WebAPI.Controllers
              await _impregnationTypeService.UpdateAsync(updateImpregnationTypes);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Delate a specific impregnation types")]
         [HttpDelete("{id}")]

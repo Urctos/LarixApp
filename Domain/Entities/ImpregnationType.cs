@@ -30,6 +30,5 @@ namespace Domain.Entities
         {
             Doors = new HashSet<Door>();
         }
-
     }
 }

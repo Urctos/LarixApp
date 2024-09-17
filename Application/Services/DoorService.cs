@@ -2,10 +2,8 @@
 using Application.Interfaceas;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Helpers;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
-
 
 namespace Application.Services
 {
@@ -15,15 +13,12 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IRepository<Door> _repository;
 
-
-
         public DoorService(IRepository<Door> repository, IMapper mapper, IPriceCalculator priceCalculator, ILogger<DoorService> logger)
             : base(repository, mapper, logger)
         {
             _repository = repository;
             _mapper = mapper;
-            _priceCalculator = priceCalculator;
-            
+            _priceCalculator = priceCalculator;      
         }
 
         public async Task<decimal> CalculateDoorPriceAsync(int doorId)
@@ -33,9 +28,7 @@ namespace Application.Services
             {
                 throw new ArgumentException($"Door with ID {doorId} not found.");
             }
-
             var door = _mapper.Map<Door>(doorDto);
-
             return await _priceCalculator.CalculatePriceAsync(door);
         }
     }

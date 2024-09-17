@@ -16,13 +16,10 @@ namespace WebAPI.Controllers
     public class WoodController : Controller
     {
         private readonly IGenericService<Wood, WoodDto, CreateWoodDto, UpdateWoodDto> _woodService;
-
-
         public WoodController(IGenericService<Wood, WoodDto, CreateWoodDto, UpdateWoodDto> woodService)
         {
             _woodService = woodService;
         }
-
 
         [SwaggerOperation(Summary = "Retrieves all woods")]
         [HttpGet]
@@ -38,16 +35,13 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(woods, validPaginationFilter, totalRecords));
         }
 
-
         [SwaggerOperation(Summary = "Create a new wood type")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateWoodDto newWood)
         {
             var wood = await _woodService.AddAsync(newWood);
             return Created($"api/woods/{wood.Id}", new Response<WoodDto>(wood));
-
         }
-
 
         [SwaggerOperation(Summary = " Update a existing wood types")]
         [HttpPut]
@@ -56,7 +50,6 @@ namespace WebAPI.Controllers
             await _woodService.UpdateAsync(updateWoods);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Delate a specific wood type")]
         [HttpDelete("{id}")]

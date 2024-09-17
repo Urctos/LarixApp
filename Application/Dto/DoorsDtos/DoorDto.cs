@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.DoorsDtos
 {
     public class DoorDto : IMap
@@ -18,7 +17,6 @@ namespace Application.Dto.DoorsDtos
         public int WoodId { get; set; }
         public int ImpregnationTypeId { get; set; }
         public int HingesId { get; set; }
-
 
         public void Mapping(Profile profile)
         {

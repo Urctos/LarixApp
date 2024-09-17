@@ -15,14 +15,12 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class HingesController : Controller
     {
-        
         private readonly IGenericService<Hinges, HingesDto, CreateHingeDto, UpdateHingesDto> _hingesService;
 
         public HingesController(IGenericService<Hinges, HingesDto, CreateHingeDto, UpdateHingesDto> hingesService)
         {
             _hingesService = hingesService;
         }
-
 
         [SwaggerOperation(Summary = "Retrieves all hinges")]
         [HttpGet]
@@ -38,7 +36,6 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(hinges, validPaginationFilter, totalRecords));
         }
 
-
         [SwaggerOperation(Summary = "Create a new hinges")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateHingeDto newHinges)
@@ -47,7 +44,6 @@ namespace WebAPI.Controllers
             return Created($"api/hinges/{hinges.Id}", new Response<HingesDto>(hinges));
         }
 
-
         [SwaggerOperation(Summary = " Update a existing hinges")]
         [HttpPut]
         public  async Task <IActionResult> Update(UpdateHingesDto updateHinges)
@@ -55,7 +51,6 @@ namespace WebAPI.Controllers
             await _hingesService.UpdateAsync(updateHinges);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Delate a specific hinges")]
         [HttpDelete("{id}")]

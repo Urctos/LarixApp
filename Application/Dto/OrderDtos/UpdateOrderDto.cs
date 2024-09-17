@@ -3,7 +3,6 @@ using Application.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.OrderDtos
 {
     public class UpdateOrderDto : IMap

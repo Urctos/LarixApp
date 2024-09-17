@@ -5,7 +5,6 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
-
 namespace Application.Services
 {
     public class OrderItemService : GenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto>, IOrderItemService

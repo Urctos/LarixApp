@@ -20,7 +20,6 @@ namespace WebAPI.Controllers
         private readonly IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto> _orderService;
         private readonly IOrderItemService _addingOrderItemService;
 
-
         public OrderItemController(IGenericService<OrderItem, OrderItemDto, CreateOrderItemDto, UpdateOrderItemDto> orderItemService,
                                    IGenericService<Order, OrderDto, CreateOrderDto, UpdateOrderDto> orderService,IOrderItemService addingOrderItemService)
         {
@@ -28,7 +27,6 @@ namespace WebAPI.Controllers
             _orderService = orderService;
             _addingOrderItemService = addingOrderItemService;           
         }
-
 
         [SwaggerOperation(Summary = "Retrieves all order items")]
         [HttpGet]
@@ -42,7 +40,6 @@ namespace WebAPI.Controllers
             return Ok(PaginationHelper.CreatePagedResponse(orderItems, validPaginationFilter, totalRecords));
         }
 
-
         [SwaggerOperation(Summary = "Create a new order item")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(CreateOrderItemDto newOrderItem)
@@ -50,22 +47,18 @@ namespace WebAPI.Controllers
             var existingOrder = await _orderService.GetByIdAsync(newOrderItem.OrderId);
             if (existingOrder == null)
             {
-                // Jeśli zamówienie nie istnieje, utwórz nowe zamówienie
                 var createOrderDto = new CreateOrderDto
                 {
-                    OrderDate = DateTime.UtcNow,  // Przykładowa data zamówienia
-                                                  // Ustaw inne właściwości zamówienia, takie jak customerId, netPrice, vatRate, totalPrice, etc.
+                    OrderDate = DateTime.UtcNow, 
                 };
                 existingOrder = await _orderService.AddAsync(createOrderDto);
             }
 
             newOrderItem.OrderId = existingOrder.Id;
 
-
             var orderItem = await _addingOrderItemService.AddOrderItemAsync(newOrderItem);
             return Created($"api/orderitem/{orderItem.Id}", new Response<OrderItemDto>(orderItem));
         }
-
 
         [SwaggerOperation(Summary = "Update an existing order item")]
         [HttpPut]
@@ -74,7 +67,6 @@ namespace WebAPI.Controllers
             await _orderItemService.UpdateAsync(updateOrderItem);
             return NoContent();
         }
-
 
         [SwaggerOperation(Summary = "Delete a specific order item")]
         [HttpDelete("{id}")]

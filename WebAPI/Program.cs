@@ -5,7 +5,6 @@ using WebAPI.MIddelwares;
 using NLog;
 using NLog.Web;
 
-
 public class Program
 {
     public static void Main(string[] args)
@@ -13,14 +12,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Host.UseNLog();
-
         builder.Services.InstallServicesInAssembly(builder.Configuration);
 
         var app = builder.Build();
 ;
 
         app.UseRouting();
-
         app.UseMiddleware<ErrorHandlingMiddelware>();
 
         // Configure the HTTP request pipeline.
@@ -31,7 +28,6 @@ public class Program
         }
 
         app.MapControllers();
-
         app.MapHealthChecks("/health", new HealthCheckOptions()
         {
             Predicate = _ => true,

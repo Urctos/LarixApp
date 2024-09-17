@@ -4,12 +4,10 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 
-
 namespace Application.Services
 {
     public class OrderService : IOrderService
     {
-
         private readonly IRepository<Order> _orderRepository;
         private readonly IOrderItemService _orderItemService;
         private readonly IMapper _mapper;
@@ -34,7 +32,6 @@ namespace Application.Services
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -58,7 +55,5 @@ namespace Application.Services
 
             await _orderRepository.UpdateAsync(order);
         }
-
-
     }
 }

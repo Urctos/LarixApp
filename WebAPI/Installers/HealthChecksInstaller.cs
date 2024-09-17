@@ -12,7 +12,6 @@ namespace WebAPI.Installers
 
             services.AddHealthChecksUI()
                 .AddInMemoryStorage();
-                
         }
     }
 }

@@ -3,12 +3,10 @@ using Application.Mappings;
 using AutoMapper;
 using Domain.Entities;
 
-
 namespace Application.Dto.OrderItemDtos
 {
     public class OrderItemDto : IMap
     {
-
         public int Id { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
@@ -16,7 +14,6 @@ namespace Application.Dto.OrderItemDtos
         public int OrderId { get; set; }
         public int DoorId { get; set; }
         public DoorDto Door { get; set; }
-
 
         public void Mapping(Profile profile)
         {
