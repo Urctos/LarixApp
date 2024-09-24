@@ -8,6 +8,8 @@ namespace Application.Services
 {
     public class OrderService : IOrderService
     {
+        private const decimal VatRate = 0.23m;
+
         private readonly IRepository<Order> _orderRepository;
         private readonly IOrderItemService _orderItemService;
         private readonly IMapper _mapper;
@@ -46,11 +48,10 @@ namespace Application.Services
 
             var orderItems = await _orderItemService.GetAllByOrderIdAsync(orderId);
             decimal netPrice = orderItems.Sum(item => item.Price);
-            decimal vatRate = 0.23m; 
-            decimal totalPrice = netPrice + (netPrice * vatRate);
+            decimal totalPrice = netPrice + (netPrice * VatRate);
 
             order.NetPrice = netPrice;
-            order.VatRate = vatRate;
+            order.VatRate = VatRate;
             order.TotalPrice = totalPrice;
 
             await _orderRepository.UpdateAsync(order);

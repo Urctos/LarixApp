@@ -53,15 +53,11 @@ namespace Domain.Helpers
                 hinges = await _hingesRepository.GetByIdAsync(door.HingesId);
             }
 
-            //var hinges = await hingesTask;
-
-            // Przypisanie pobranych obiektów materiałowych do drzwi
             door.GlassType = glassType;
             door.Wood = wood;
             door.ImpregnationType = impregnationType;
             door.Hinges = hinges;
 
-            // Obliczenie ceny drzwi na podstawie przypisanych obiektów materiałowych
             decimal woodPrice = wood != null ? wood.Price : 0;
             decimal glassPrice = glassType != null ? glassType.Price : 0;
             decimal hingesPrice = hinges != null ? hinges.Price : 0;

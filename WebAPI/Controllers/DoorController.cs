@@ -102,13 +102,13 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            var door = _mapper.Map<Door>(doorDto); // Mapowanie DoorDto na Door
-            var price = await _priceCalculator.CalculatePriceAsync(door); // Obliczanie ceny drzwi
+            var door = _mapper.Map<Door>(doorDto); 
+            var price = await _priceCalculator.CalculatePriceAsync(door); 
 
             Debug.WriteLine($"Calculated price for door {door.Id}: {price}");
 
             doorDto.Price = price;
-            var updateDoorDto = _mapper.Map<UpdateDoorDto>(doorDto); // Mapowanie DoorDto na UpdateDoorDto
+            var updateDoorDto = _mapper.Map<UpdateDoorDto>(doorDto); 
 
             await _doorService.UpdateAsync(updateDoorDto);
 

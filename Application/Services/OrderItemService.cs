@@ -43,10 +43,6 @@ namespace Application.Services
 
             orderItem.Price = door.Price * newDto.Quantity;
 
-            //newDto.Price = door.Price * newDto.Quantity;
-            //var entity = _mapper.Map<OrderItem>(newDto);
-            //var result = await _repository.AddAsync(entity);
-
             var result = await _orderItemRepository.AddAsync(orderItem);
             return _mapper.Map<OrderItemDto>(result);
         }

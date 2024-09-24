@@ -32,12 +32,11 @@ namespace Infrastructure.ExtensionMethods
                     var containsExpression = Expression.Call(toLower, containsMethod, filterValue);
                     filterExpressions.Add(containsExpression);
                 }
-                // Dodaj warunki dla innych typów właściwości, jeśli to konieczne
             }
 
             if (filterExpressions.Count == 0)
             {
-                return m => true; // Jeśli nie ma wyrażeń filtrujących, zwróć funkcję zawsze zwracającą true
+                return m => true; 
             }
 
             var combinedExpression = filterExpressions.Aggregate((Expression)null, (current, expression) =>
